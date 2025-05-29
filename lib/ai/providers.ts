@@ -5,6 +5,7 @@ import {
 } from 'ai';
 import { xai } from '@ai-sdk/xai';
 import { deepinfra } from '@ai-sdk/deepinfra';
+import { openai } from '@ai-sdk/openai'; 
 import { isTestEnvironment } from '../constants';
 import {
   artifactModel,
@@ -29,8 +30,8 @@ export const myProvider = isTestEnvironment
           model: deepinfra('deepseek-ai/DeepSeek-R1-0528'),
           middleware: extractReasoningMiddleware({ tagName: 'think' }),
         }),
-        'title-model': deepinfra('deepseek-ai/DeepSeek-V3-0324'),
-        'artifact-model': deepinfra('deepseek-ai/DeepSeek-V3-0324'),
+        'title-model': openai('gpt-4.1-nano'),
+        'artifact-model': openai('gpt-4.1'),
       },
       imageModels: {
         'small-model': xai.image('grok-2-image'),
