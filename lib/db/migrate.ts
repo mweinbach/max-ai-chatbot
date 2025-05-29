@@ -3,9 +3,15 @@ import { drizzle } from 'drizzle-orm/postgres-js';
 import { migrate } from 'drizzle-orm/postgres-js/migrator';
 import postgres from 'postgres';
 
-config({
-  path: '.env.local',
-});
+// Load both .env and .env.local files
+const result = config({ path: '.env' });
+if (result.error) {
+  console.log('No .env file found, trying .env.local');
+  const localResult = config({ path: '.env.local' });
+  if (localResult.error) {
+    console.warn('No .env or .env.local file found');
+  }
+}
 
 const runMigrate = async () => {
   if (!process.env.POSTGRES_URL) {
